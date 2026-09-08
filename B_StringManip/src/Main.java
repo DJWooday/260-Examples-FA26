@@ -2,6 +2,19 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        int a = 6^3;
+        System.out.println(a);
+        int b = (int)Math.pow(6, 3);
+        System.out.println(b);
+        int c = (int)3.7;
+        System.out.println(c);
+
+        int numPizza = 7;
+        int numStudents = 29;
+        float pizzasPerPerson = ((float)numPizza) / numStudents;
+        System.out.println(pizzasPerPerson);
+
+
         Scanner input = new Scanner(System.in);
         char quote = '\'';
         String s = "That\'s a lot of spaghetti";
@@ -16,6 +29,6 @@ public class Main {
         int indexOfSpace = restaurant.indexOf(' ');
         String menuItem = restaurant.substring(0, indexOfSpace);
         System.out.println(restaurant + " serves " + menuItem);
-        int a = 6^3;
+
     }
 }
