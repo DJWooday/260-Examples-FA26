@@ -1,11 +1,13 @@
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-        int numMilk = 5, numTP = 1, numSC = 12;
+        int numMilk = 5, numTP = 1, numSC = 120;
+        int itemHeaderWidth = 16;
+        String fmt = "%-" + itemHeaderWidth + "s %8d %8.2f\n";
         System.out.println("Budget:");
-        System.out.printf("%20s %8d %8.2f\n", "Milk", numMilk, 3.99);
-        System.out.printf("%20s %8d %8.2f\n", "Toilet Paper", numTP, 20.0);
-        System.out.println("Scented Candles, 120, 12");
+        System.out.printf(fmt, "Milk", numMilk, 3.99);
+        System.out.printf(fmt, "Toilet Paper", numTP, 20.0);
+        System.out.printf(fmt, "Scented Candles", numSC, 12.99);
 
         int rows = 3, cols = 4;
         int temp = rows;
