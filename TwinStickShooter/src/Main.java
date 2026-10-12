@@ -1,12 +1,16 @@
+import java.util.Random;
 import java.util.Scanner;
 public class Main {
     public static void InitializeMap(char[] map) {
         for (int i = 0; i < map.length; i++)
             map[i] = '0';
     }
-    public static void PrintMap(char[] map) {
-        for (char c : map)
-            System.out.print(c + " ");
+    
+    public static void PrintMap(char[] map, int width) {
+        for (int i = 0; i < map.length; i++) {
+            System.out.print(map[i] + " ");
+            if (i % width == width - 1) System.out.println();
+        }
     }
 
     public static int Move(char[] map, int px, int movement) {
@@ -17,18 +21,30 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int playerX = 3, playerY = 1;
+        int pIndex = -1;
         int health = 10;
-        char map[] = new char[10];
-        InitializeMap(map);
-        map[playerX] = '1';
+        char map[];
 
         Scanner input = new Scanner(System.in);
+
+        // Get map dimensions in range
+        int width=-1, height=-1; // Set to -1 to indicate not yet set
+        do {
+            System.out.print("Enter width: "); width = input.nextInt();
+            System.out.print("Enter height: "); height = input.nextInt();
+        } while (!(width > 4 && width < 15 &&  height > 4 && height < 15));
+
+        // Have the map dimensions, now initialize and find a random player pos
+        map = new char[width*height];
+        InitializeMap(map);
+        pIndex = (int)(Math.random() * map.length);
+        map[pIndex] = '1';
+
 
         while (health > 0) {
             boolean inputGood = true;
             do {
-                PrintMap(map);
+                PrintMap(map, width);
 
                 System.out.print("> ");
                 String actionString = input.next();
@@ -38,16 +54,16 @@ public class Main {
                 switch (action) {
                     case 'W':
                     case 'w':
-                        playerY++;
+                        pIndex = Move(map, pIndex, -width);
                         break;
                     case 's':
-                        playerY--;
+                        pIndex = Move(map, pIndex, width);
                         break;
                     case 'a':
-                        playerX = Move(map, playerX, -1);
+                        pIndex = Move(map, pIndex, -1);
                         break;
                     case 'd':
-                        playerX = Move(map, playerX, 1);
+                        pIndex = Move(map, pIndex, 1);
                         break;
                     default:
                         System.out.println("Bad Input");
