@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.util.Scanner;
 public class Main {
     public static void InitializeMap(char[] map) {
@@ -21,8 +20,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int pIndex = -1;
-        int health = 10;
         char map[];
 
         Scanner input = new Scanner(System.in);
@@ -37,11 +34,15 @@ public class Main {
         // Have the map dimensions, now initialize and find a random player pos
         map = new char[width*height];
         InitializeMap(map);
-        pIndex = (int)(Math.random() * map.length);
+        int pIndex = (int)(Math.random() * map.length);
+        Entity player = new Entity(pIndex);
         map[pIndex] = '1';
 
+        Entity[] enemies = new Entity[10];
+        for (int i = 0; i < enemies.length; i++)
+            enemies[i] = new Entity((int)(Math.random() * map.length));
 
-        while (health > 0) {
+        while (player.health > 0) {
             boolean inputGood = true;
             do {
                 PrintMap(map, width);
@@ -51,19 +52,32 @@ public class Main {
                 char action = actionString.charAt(0);
 
 
+
+                int p;
                 switch (action) {
                     case 'W':
                     case 'w':
-                        pIndex = Move(map, pIndex, -width);
+                        //pIndex = Move(map, pIndex, -width);
+                        map[player.position] = '0';
+                        p = player.Move(-width);
+                        map[p] = '1';
                         break;
                     case 's':
-                        pIndex = Move(map, pIndex, width);
+                        //pIndex = Move(map, pIndex, width);
+                        map[player.position] = '0';
+                        p = player.Move(width);
+                        map[p] = '1';
                         break;
                     case 'a':
-                        pIndex = Move(map, pIndex, -1);
+                        map[player.position] = '0';
+                        p = player.Move(-1);
+                        map[p] = '1';
                         break;
                     case 'd':
-                        pIndex = Move(map, pIndex, 1);
+                        //pIndex = Move(map, pIndex, 1);
+                        map[player.position] = '0';
+                        p = player.Move(1);
+                        map[p] = '1';
                         break;
                     default:
                         System.out.println("Bad Input");
